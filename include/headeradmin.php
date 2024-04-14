@@ -132,26 +132,7 @@ $_SESSION['expire_time'] = time() + (10 * 60); // Extend session for 10 minutes
 
         <div class="content-wrapper">
             <div class="container-fluid">
-                <!--Start Dashboard Content-->
-                <div class="card">
-                    <div class="card-header text-uppercase">Text Alignment types</div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-lg-4">
-                                <p class="text-left">Left aligned text.</p>
-                                <p class="text-left">Pellentesque vulputate arcu sed risus auctor tincidunt. Morbi eget massa turpis. Fusce aliquet dolor eu posuere tincidunt. Fusce ultricies luctus dui, dapibus pharetra risus semper non. .</p>
-                            </div>
-                            <div class="col-lg-4">
-                                <p class="text-center">Center aligned text.</p>
-                                <p class="text-center">Pellentesque vulputate arcu sed risus auctor tincidunt. Morbi eget massa turpis. Fusce aliquet dolor eu posuere tincidunt. Fusce ultricies luctus dui, dapibus pharetra risus semper non. .</p>
-                            </div>
-                            <div class="col-lg-4">
-                                <p class="text-right">Right aligned text.</p>
-                                <p class="text-right">Pellentesque vulputate arcu sed risus auctor tincidunt. Morbi eget massa turpis. Fusce aliquet dolor eu posuere tincidunt. Fusce ultricies luctus dui, dapibus pharetra risus semper non. .</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
 
 
                 <!--End Row-->

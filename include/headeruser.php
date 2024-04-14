@@ -47,8 +47,7 @@ $_SESSION['expire_time'] = time() + (10 * 60); // Extend session for 10 minutes
         <div id="sidebar-wrapper" data-simplebar="" data-simplebar-auto-hide="true">
             <div class="brand-logo">
                 <a href="index.html">
-                    <img src="../assets/images/logo-icon.png" class="logo-icon" alt="logo icon" />
-                    <h5 class="logo-text">Dashtreme Admin</h5>
+                    <h5 class="logo-text">CheapDeals - User Area</h5>
                 </a>
             </div>
             <div class="user-details">
@@ -71,23 +70,23 @@ $_SESSION['expire_time'] = time() + (10 * 60); // Extend session for 10 minutes
             <ul class="sidebar-menu">
                 <li class="sidebar-header">MAIN NAVIGATION</li>
                 <li>
-                    <a href="../pages/latest.php" class="waves-effect">
-                        <i class="fa fa-dashboard"></i> <span>Latest</span>
+                    <a href="#" class="waves-effect">
+                        <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                     </a>
                 </li>
                 <li>
-                    <a href="../pages/postquestion.php" class="waves-effect">
-                        <i class="fa fa-question-circle-o"></i> <span>Post a Question</span>
+                    <a href="#" class="waves-effect">
+                        <i class="fa fa-question-circle-o"></i> <span>All Products</span>
                     </a>
                 </li>
                 <li>
-                    <a href="../pages/viewallquestions.php" class="waves-effect">
-                        <i class="fa fa-question-circle"></i> <span>View Questions</span>
+                    <a href="#" class="waves-effect">
+                        <i class="fa fa-question-circle"></i> <span>Offers for You</span>
                     </a>
                 </li>
                 <li>
-                    <a href="../pages/viewallanswers.php" class="waves-effect">
-                        <i class="fa fa-reply-all"></i> <span>View Answers</span>
+                    <a href="#" class="waves-effect">
+                        <i class="fa fa-shopping-cart"></i> <span>View Cart</span>
                     </a>
                 </li>
                 <li class="sidebar-header">Quick Actions</li>
@@ -107,9 +106,6 @@ $_SESSION['expire_time'] = time() + (10 * 60); // Extend session for 10 minutes
                         <a class="nav-link toggle-menu" href="javascript:void();">
                             <i class="icon-menu menu-icon"></i>
                         </a>
-                    </li>
-                    <li class="nav-item">
-                        <h6>Oshwall College - Students Hub - Latest</h6>
                     </li>
                 </ul>
                 <ul class="navbar-nav align-items-right">
