@@ -1,4 +1,5 @@
 <?php
+ob_start();
 session_start(); // Start or resume existing session
 // Check if the user is not logged in or session has expired
 if (!isset($_SESSION['user_id']) || $_SESSION['expire_time'] < time()) {

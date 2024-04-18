@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     try {
         // Prepare SQL statement to insert user data
-        $stmt = $pdo->prepare("INSERT INTO users (firstname, middlename, lastname, phonenumber, email, gender, address, username, password, role, dateandtime) VALUES (:firstname, :middlename, :lastname, :phonenumber, :email, :gender, :address, :username, :password, :role, :dateandtime)");
+        $stmt = $pdo->prepare("INSERT INTO users (firstname, middlename, lastname, phonenumber, email, gender, address, username, password, role, dateandtime, status) VALUES (:firstname, :middlename, :lastname, :phonenumber, :email, :gender, :address, :username, :password, :role, :dateandtime, :status)");
 
         // Bind parameters
         $stmt->bindParam(':firstname', $firstname);
@@ -32,12 +32,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bindParam(':password', $password);
         $stmt->bindParam(':role', $role);
         $stmt->bindParam(':dateandtime', $dateandtime);
+        // Set default status to 'active'
+        $status = 'active';
+        $stmt->bindParam(':status', $status);
 
         // Execute the statement
         $stmt->execute();
 
-        // Redirect to login page
-        header("Location: ../auth/login.php");
+        // Redirect to login page with success message
+        header("Location: ../auth/login.php?alertType=success&alertMessage=Registration successful. Please log in.");
         exit();
     } catch (PDOException $e) {
         // Display error message if registration fails

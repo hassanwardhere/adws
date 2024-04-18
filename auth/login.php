@@ -2,6 +2,10 @@
 // Include the database connection file
 include '../include/config.php';
 
+$alertType = '';
+$alertMessage = '';
+$redirectURL = '';
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve username and password from form
     $username = htmlspecialchars($_POST['username']);
@@ -20,39 +24,53 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Fetch user data
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        // Verify password
+        // Verify password and check user status
         if ($user && password_verify($password, $user['password'])) {
-            // Password is correct
-            // Start a session
-            session_start();
+            // Check if user is active
+            if ($user['status'] == 'active') {
+                // Start a session
+                session_start();
 
-            // Store user data in session variables
-            $_SESSION['user_id'] = $user['id'];
-            echo "User ID in session: " . $_SESSION['user_id'] . "<br>"; // Debugging statement
-            $_SESSION['username'] = $user['username'];
-            $_SESSION['role'] = $user['role'];
-            // Set session expiration time to 10 minutes
-            $_SESSION['expire_time'] = time() + (10 * 60);
+                // Store user data in session variables
+                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['username'] = $user['username'];
+                $_SESSION['role'] = $user['role'];
+                // Set session expiration time to 10 minutes
+                $_SESSION['expire_time'] = time() + (10 * 60);
 
-            // Redirect based on user role
-            if ($user['role'] == 'User') {
-                header("Location: ../users/main.php");
-                exit();
-            } elseif ($user['role'] == 'Admin') {
-                header("Location: ../admin/dashboard.php");
-                exit();
+                // Set alert message
+                $alertType = 'success';
+                $alertMessage = 'Successfully authenticated.';
+
+                // Redirect based on user role
+                if ($user['role'] == 'User') {
+                    $redirectURL = '../users/myprofile.php';
+                } elseif ($user['role'] == 'Admin') {
+                    $redirectURL = '../admin/dashboard.php';
+                }
+            } else {
+                // User is deactivated
+                $alertType = 'danger';
+                $alertMessage = 'Your account has been deactivated. Please contact support for assistance.';
             }
         } else {
-            // Password is incorrect
-            echo "Invalid username or password.";
+            // Password is incorrect or user does not exist
+            $alertType = 'danger';
+            $alertMessage = 'Invalid username or password.';
         }
     } catch (PDOException $e) {
         // Display error message if query fails
-        echo "Error: " . $e->getMessage();
+        $alertType = 'danger';
+        $alertMessage = 'Error: ' . $e->getMessage();
     }
 }
-?>
 
+// Display alert for users arriving from register.php
+if (isset($_GET['alertType']) && isset($_GET['alertMessage'])) {
+    $alertType = $_GET['alertType'];
+    $alertMessage = $_GET['alertMessage'];
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -74,10 +92,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
+
+
     <!-- Start wrapper-->
     <div id="wrapper">
+
         <div class="card card-authentication1 mx-auto my-5">
             <div class="card-body">
+                <?php if (!empty($alertType) && !empty($alertMessage)) : ?>
+                    <div class="alert alert-<?php echo $alertType; ?> alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <div class="alert-icon">
+                            <i class="fa fa-bell"></i>
+                        </div>
+                        <div class="alert-message">
+                            <span><strong><?php echo ucfirst($alertType); ?>!</strong> <?php echo $alertMessage; ?></span>
+                        </div>
+                    </div>
+                <?php endif; ?>
+                <?php if (!empty($redirectURL)) : ?>
+                    <script>
+                        // Redirect after 2 seconds
+                        setTimeout(function() {
+                            window.location.href = "<?php echo $redirectURL; ?>";
+                        }, 100);
+                    </script>
+                <?php endif; ?>
                 <div class="card-content p-2">
                     <div class="card-title text-uppercase text-center py-3">Sign In</div>
                     <form action="" method="POST">
@@ -112,6 +152,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <!-- Custom scripts -->
     <script src="../assets/js/app-script.js"></script>
+
 
 </body>
 

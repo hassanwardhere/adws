@@ -1,4 +1,5 @@
 <?php
+ob_start();
 session_start(); // Start or resume existing session
 
 // Check if the user is not logged in or session has expired
@@ -32,6 +33,9 @@ $_SESSION['expire_time'] = time() + (10 * 60); // Extend session for 10 minutes
     <link href="../assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
     <!-- Bootstrap core CSS-->
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
+    <!--Data Tables -->
+    <link href="../assets/plugins/bootstrap-datatable/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css">
+    <link href="../assets/plugins/bootstrap-datatable/css/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css">
     <!-- animate CSS-->
     <link href="../assets/css/animate.css" rel="stylesheet" type="text/css" />
     <!-- Icons CSS-->
@@ -76,22 +80,27 @@ $_SESSION['expire_time'] = time() + (10 * 60); // Extend session for 10 minutes
                 <li class="sidebar-header">MAIN NAVIGATION</li>
                 <li>
                     <a href="../admin/dashboard.php" class="waves-effect">
-                        <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                        Dashboard
                     </a>
                 </li>
                 <li>
-                    <a href="../admin/viewusers.php" class="waves-effect">
-                        <i class="fa fa-user-circle"></i> <span>View Users</span>
+                    <a href="../admin/managecustomers.php" class="waves-effect">
+                        Manage Customers
                     </a>
                 </li>
                 <li>
-                    <a href="../admin/viewquestions.php" class="waves-effect">
-                        <i class="fa fa-question-circle"></i> <span>View Questions</span>
+                    <a href="../admin/managepackages.php" class="waves-effect">
+                        Manage Packages
                     </a>
                 </li>
                 <li>
-                    <a href="../admin/viewanswers.php" class="waves-effect">
-                        <i class="fa fa-reply-all"></i> <span>View Answers</span>
+                    <a href="../admin/managespecialoffers.php" class="waves-effect">
+                        Manage Special Offers
+                    </a>
+                </li>
+                <li>
+                    <a href="../admin/processorder.php" class="waves-effect">
+                        Process Orders
                     </a>
                 </li>
                 <li class="sidebar-header">Quick Actions</li>
@@ -132,7 +141,7 @@ $_SESSION['expire_time'] = time() + (10 * 60); // Extend session for 10 minutes
 
         <div class="content-wrapper">
             <div class="container-fluid">
-                
+
 
 
                 <!--End Row-->
