@@ -44,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 // Redirect based on user role
                 if ($user['role'] == 'User') {
-                    $redirectURL = '../users/myprofile.php';
+                    $redirectURL = '../users/dashboard.php';
                 } elseif ($user['role'] == 'Admin') {
                     $redirectURL = '../admin/dashboard.php';
                 }

@@ -7,7 +7,7 @@ include '../include/headeradmin.php';
 $alertType = isset($_GET['alertType']) ? $_GET['alertType'] : '';
 $alertMessage = isset($_GET['alertMessage']) ? $_GET['alertMessage'] : '';
 
-// Fetch all offers
+// Fetch all packages
 $stmt = $pdo->query("SELECT * FROM offers");
 $offers = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
@@ -39,11 +39,11 @@ $offers = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <div class="card-header">
                 <h5>All Offers
                     <span>
-                        <a href="addoffers.php" class="btn btn-success float-right" style="margin-left: 10px;">Add Offer</a>
+                        <a href="addspecialoffers.php" class="btn btn-success float-right" style="margin-left: 10px;">Add Offer</a>
                     </span>
                 </h5>
             </div>
-            <div class="card-body">
+            <div class="card-body"></div>
                 <div class="table-responsive">
                     <table id="default-datatable" class="table table-bordered">
                         <thead>
@@ -53,7 +53,7 @@ $offers = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <th>Price</th>
                                 <th>Discount</th>
                                 <th>Validity</th>
-                                <th>Additional Details</th>
+                                <th>Assigned</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -63,24 +63,32 @@ $offers = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                     <td><?php echo $offer['offername']; ?></td>
                                     <td><?php echo $offer['device']; ?></td>
                                     <td><?php echo $offer['price']; ?></td>
-                                    <td><?php echo $offer['discount']; ?></td>
+                                    <td><?php echo $offer['discount']; ?>%</td>
                                     <td><?php echo $offer['validity']; ?></td>
-                                    <td><?php echo $offer['additionaldetails']; ?></td>
+                                    <td>All</td>
                                     <td>
-                                        <a href="editoffers.php?id=<?php echo $offer['id']; ?>" class="btn btn-primary btn-sm">Edit</a>
+                                        <a href="editoffers.php?id=<?php echo $offer['id']; ?>" class="btn btn-info btn-sm">Edit</a>
                                         <a href="deleteoffers.php?id=<?php echo $offer['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirmDelete();">Delete</a>
+                                        <div class='btn-group m-1' role='group'>
+                                            <button type='button' class='btn btn-dark waves-effect waves-light dropdown-toggle btn-sm' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Assign</button>
+                                            <div class='dropdown-menu'>
+                                                <a href='assignall.php?id=<?php echo $offer['id']; ?>' class='btn btn-dark m-1 btn-sm'>All</a>
+                                                <br>
+                                                <a href='indassign.php?id=<?php echo $offer['id']; ?>' class='btn btn-dark m-1 btn-sm'>Individual</a>
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
                         <tfoot>
                             <tr>
-                                <th>offer Name</th>
+                                <th>Offer Name</th>
                                 <th>Device</th>
                                 <th>Price</th>
                                 <th>Discount</th>
                                 <th>Validity</th>
-                                <th>Additional Details</th>
+                                <th>Assigned</th>
                                 <th>Actions</th>
                             </tr>
                         </tfoot>
@@ -90,7 +98,6 @@ $offers = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </div>
 </div><!-- End Row-->
-
 <script>
     function confirmDelete() {
         return confirm("Are you sure you want to delete this special offer?");

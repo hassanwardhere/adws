@@ -63,7 +63,7 @@ $packages = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                     <td><?php echo $package['packagename']; ?></td>
                                     <td><?php echo $package['device']; ?></td>
                                     <td><?php echo $package['price']; ?></td>
-                                    <td><?php echo $package['discount']; ?></td>
+                                    <td><?php echo $package['discount']; ?>%</td>
                                     <td><?php echo $package['validity']; ?></td>
                                     <td><?php echo $package['additionaldetails']; ?></td>
                                     <td>

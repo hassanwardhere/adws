@@ -14,6 +14,7 @@ $_SESSION['expire_time'] = time() + (10 * 60); // Extend session for 10 minutes
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -54,7 +55,7 @@ $_SESSION['expire_time'] = time() + (10 * 60); // Extend session for 10 minutes
             <div class="user-details">
                 <div class="media align-items-center user-pointer collapsed" data-toggle="collapse" data-target="#user-dropdown">
                     <div class="avatar">
-                        <img class="mr-3 side-user-img" src="https://via.placeholder.com/110x110" alt="user avatar" />
+                        <img class="mr-3 side-user-img" src="../assets/images/placeholder110by110.jpg" alt="user avatar" />
                     </div>
                     <div class="media-body">
                         <h6 class="side-user-name">Mark Johnson</h6>
@@ -63,7 +64,7 @@ $_SESSION['expire_time'] = time() + (10 * 60); // Extend session for 10 minutes
                 <div id="user-dropdown" class="collapse">
                     <ul class="user-setting-menu">
                         <li>
-                            <a href="javaScript:void();"><i class="icon-user"></i> My Profile</a>
+                            <a href="../users/myprofile.php"><i class="icon-user"></i> My Profile</a>
                         </li>
                     </ul>
                 </div>
@@ -71,23 +72,18 @@ $_SESSION['expire_time'] = time() + (10 * 60); // Extend session for 10 minutes
             <ul class="sidebar-menu">
                 <li class="sidebar-header">MAIN NAVIGATION</li>
                 <li>
-                    <a href="#" class="waves-effect">
+                    <a href="../users/dashboard.php" class="waves-effect">
                         <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="waves-effect">
-                        <i class="fa fa-question-circle-o"></i> <span>All Products</span>
+                    <a href="../users/allpackages.php" class="waves-effect">
+                        <i class="fa fa-question-circle-o"></i> <span>All Packages</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="waves-effect">
+                    <a href="../users/offersforyou.php" class="waves-effect">
                         <i class="fa fa-question-circle"></i> <span>Offers for You</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="waves-effect">
-                        <i class="fa fa-shopping-cart"></i> <span>View Cart</span>
                     </a>
                 </li>
                 <li class="sidebar-header">Quick Actions</li>
@@ -110,6 +106,10 @@ $_SESSION['expire_time'] = time() + (10 * 60); // Extend session for 10 minutes
                     </li>
                 </ul>
                 <ul class="navbar-nav align-items-right">
+                    <li class="nav-item" style="padding-right: 10px;">
+                        <a class="btn btn-info" href="../users/viewcart.php">Cart</a>
+                    </li>
+                    <span></span>
                     <li class="nav-item">
                         <a class="btn btn-danger" href="../auth/logout.php"> Log Out </a>
                     </li>
@@ -122,7 +122,7 @@ $_SESSION['expire_time'] = time() + (10 * 60); // Extend session for 10 minutes
 
         <div class="content-wrapper">
             <div class="container-fluid">
-                
+
 
                 <!--End Row-->
 

@@ -21,14 +21,15 @@ include '../include/headeruser.php';
     <div class="col-lg-4">
         <div class="card profile-card-2">
             <div class="card-img-block">
-                <img class="img-fluid" src="https://via.placeholder.com/800x500" alt="Card image cap" />
+                <img class="img-fluid" src="../assets/images/placeholder800by500.jpg" alt="Card image cap" />
             </div>
             <div class="card-body pt-5">
-                <img src="https://via.placeholder.com/110x110" alt="profile-image" class="profile" />
-                <h5 class="card-title">Mark Stern</h5>
+                <img src="../assets/images/placeholder110by110.jpg" alt="profile-image" class="profile" />
+                <h5 class="card-title">Mark Stern<a href="#" class="btn btn-info btn-sm float-right">Edit Profile</a></h5>
                 <p class="card-text">
                     Welcome.
                 </p>
+                
             </div>
         </div>
     </div>
@@ -40,10 +41,6 @@ include '../include/headeruser.php';
                     <li class="nav-item">
                         <a href="javascript:void();" data-target="#profile" data-toggle="pill" class="nav-link active"><i class="icon-user"></i>
                             <span class="hidden-xs">Profile Details</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="javascript:void();" data-target="#edit" data-toggle="pill" class="nav-link"><i class="icon-note"></i>
-                            <span class="hidden-xs">Edit your Details</span></a>
                     </li>
                 </ul>
                 <div class="tab-content p-3">
@@ -209,66 +206,11 @@ include '../include/headeruser.php';
                         </div>
                         <!--End Row-->
                     </div>
-
-                    <div class="tab-pane" id="edit">
-                        <form>
-                            <div class="form-group row">
-                                <label class="col-lg-3 col-form-label form-control-label">Change profile</label>
-                                <div class="col-lg-9">
-                                    <input class="form-control" type="file" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="firstname">First Name: </label>
-                                <input type="text" id="firstname" name="firstname" class="form-control input-shadow" placeholder="Enter Your First Name" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="middlename">Middle Name: </label>
-                                <input type="text" id="middlename" name="middlename" class="form-control input-shadow" placeholder="Enter Your Middle Name" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="lastname">Last Name: </label>
-                                <input type="text" id="lastname" name="lastname" class="form-control input-shadow" placeholder="Enter Your Last Name" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="phonenumber">Phone Number: </label>
-                                <input type="tel" id="phonenumber" name="phonenumber" class="form-control input-shadow" placeholder="Enter Your Phone Number" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email: </label>
-                                <input type="email" id="email" name="email" class="form-control input-shadow" placeholder="Enter Your Email" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="gender">Your Gender: </label>
-                                <select id="gender" name="gender" class="form-control input-shadow" required>
-                                    <option value="male">Male </option>
-                                    <option value="female">Female </option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="address">Address: </label>
-                                <input type="text" id="address" name="address" class="form-control input-shadow" placeholder="Enter Your Address" required>
-                            </div>
-                            <hr>
-                            <div class="form-group">
-                                <label for="username">Choose a Username: </label>
-                                <input type="text" id="username" name="username" class="form-control input-shadow" placeholder="Enter Your Username" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="oldpassword">Old Password: </label>
-                                <input type="password" id="oldpassword" name="oldpassword" class="form-control input-shadow" readonly>
-                            </div>
-                            <div class="form-group">
-                                <label for="newpassword">New Password: </label>
-                                <input type="password" id="newpassword" name="newpassword" class="form-control input-shadow" placeholder="Choose a Password">
-                            </div>
-                            <button type="submit" name="update" class="btn btn-success btn-block waves-effect waves-light">Update</button>
-                        </form>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>
 <!--start overlay-->
 

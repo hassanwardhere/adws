@@ -62,7 +62,7 @@ $_SESSION['expire_time'] = time() + (10 * 60); // Extend session for 10 minutes
             <div class="user-details">
                 <div class="media align-items-center user-pointer collapsed" data-toggle="collapse" data-target="#user-dropdown">
                     <div class="avatar">
-                        <img class="mr-3 side-user-img" src="https://via.placeholder.com/110x110" alt="user avatar" />
+                        <img class="mr-3 side-user-img" src="../assets/images/placeholder110by110.jpg" alt="user avatar" />
                     </div>
                     <div class="media-body">
                         <h6 class="side-user-name">Hassan</h6>
@@ -101,6 +101,11 @@ $_SESSION['expire_time'] = time() + (10 * 60); // Extend session for 10 minutes
                 <li>
                     <a href="../admin/processorder.php" class="waves-effect">
                         Process Orders
+                    </a>
+                </li>
+                <li>
+                    <a href="../admin/managecustomersupport.php" class="waves-effect">
+                        Support
                     </a>
                 </li>
                 <li class="sidebar-header">Quick Actions</li>
