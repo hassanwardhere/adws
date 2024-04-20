@@ -114,6 +114,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <div class="col">
                                 <label for="device"><strong><span style="color: black;">Device</span></strong></label>
                                 <select class="form-control" id="device" name="device" required>
+                                    <option>Hybrid</option>
                                     <option>Mobile Only</option>
                                     <option>Tablet Only</option>
                                     <option>Broadband Only</option>

@@ -52,8 +52,8 @@ $packages = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <th>Device</th>
                                 <th>Price</th>
                                 <th>Discount</th>
+                                <th>Total</th>
                                 <th>Validity</th>
-                                <th>Additional Details</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -62,10 +62,10 @@ $packages = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <tr>
                                     <td><?php echo $package['packagename']; ?></td>
                                     <td><?php echo $package['device']; ?></td>
-                                    <td><?php echo $package['price']; ?></td>
+                                    <td>Ksh /=<?php echo $package['price']; ?></td>
                                     <td><?php echo $package['discount']; ?>%</td>
+                                    <td><?php echo $package['total']; ?></td>
                                     <td><?php echo $package['validity']; ?></td>
-                                    <td><?php echo $package['additionaldetails']; ?></td>
                                     <td>
                                         <a href="editpackages.php?id=<?php echo $package['id']; ?>" class="btn btn-primary btn-sm">Edit</a>
                                         <a href="deletepackages.php?id=<?php echo $package['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirmDelete();">Delete</a>
@@ -79,8 +79,8 @@ $packages = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <th>Device</th>
                                 <th>Price</th>
                                 <th>Discount</th>
+                                <th>Total</th>
                                 <th>Validity</th>
-                                <th>Additional Details</th>
                                 <th>Actions</th>
                             </tr>
                         </tfoot>

@@ -7,8 +7,8 @@ include '../include/headeradmin.php';
 $alertType = isset($_GET['alertType']) ? $_GET['alertType'] : '';
 $alertMessage = isset($_GET['alertMessage']) ? $_GET['alertMessage'] : '';
 
-// Fetch all packages
-$stmt = $pdo->query("SELECT * FROM offers");
+// Fetch all offers with assignment details
+$stmt = $pdo->query("SELECT offers.*, offerassign.assignedto FROM offers LEFT JOIN offerassign ON offers.id = offerassign.offerid");
 $offers = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
@@ -65,10 +65,10 @@ $offers = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                     <td><?php echo $offer['price']; ?></td>
                                     <td><?php echo $offer['discount']; ?>%</td>
                                     <td><?php echo $offer['validity']; ?></td>
-                                    <td>All</td>
+                                    <td><?php echo $offer['assignedto'] ? $offer['assignedto'] : 'None'; ?></td>
                                     <td>
-                                        <a href="editoffers.php?id=<?php echo $offer['id']; ?>" class="btn btn-info btn-sm">Edit</a>
-                                        <a href="deleteoffers.php?id=<?php echo $offer['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirmDelete();">Delete</a>
+                                        <a href="editspecialoffers.php?id=<?php echo $offer['id']; ?>" class="btn btn-info btn-sm">Edit</a>
+                                        <a href="deletespecialoffers.php?id=<?php echo $offer['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirmDelete();">Delete</a>
                                         <div class='btn-group m-1' role='group'>
                                             <button type='button' class='btn btn-dark waves-effect waves-light dropdown-toggle btn-sm' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Assign</button>
                                             <div class='dropdown-menu'>
