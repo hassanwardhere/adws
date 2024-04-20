@@ -2,19 +2,57 @@
 // Include the database connection file
 include '../include/config.php';
 include '../include/headeradmin.php';
+
+// Check if ID is provided in the URL
+if(isset($_GET['id'])) {
+    // Sanitize the ID
+    $id = $_GET['id'];
+
+    // Fetch mail/contact details from the database based on the ID
+    $stmt = $pdo->prepare("SELECT * FROM contactadmin WHERE id = ?");
+    $stmt->execute([$id]);
+    $message = $stmt->fetch(PDO::FETCH_ASSOC);
+} else {
+    // Redirect or handle the case when ID is not provided
+    // For example, redirect to managecustomersupport.php
+    header("Location: managecustomersupport.php");
+    exit();
+}
+
+// Handle form submission for sending a reply
+if($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if(isset($_POST['reply_message'])) {
+        // Sanitize and validate the reply message
+        $replyMessage = htmlspecialchars($_POST['reply_message']);
+        
+        // Send the reply email to the original sender
+        $to = $message['email'];
+        $subject = "Re: " . $message['subject'];
+        $body = "Dear " . $message['fullnames'] . ",\n\n" . $replyMessage;
+        $headers = "From: Your Company Name <test@tayoinc.com>";
+
+        if(mail($to, $subject, $body, $headers)) {
+            // Email sent successfully
+            $alertType = 'success';
+            $alertMessage = 'Reply sent successfully.';
+        } else {
+            // Email sending failed
+            $alertType = 'danger';
+            $alertMessage = 'Failed to send reply. Please try again later.';
+        }
+    }
+}
 ?>
-
-
 
 <div class="row pt-2 pb-2">
     <div class="col-sm-9">
         <h4 class="page-title">Mail Read</h4>
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a href="javaScript:void();">Dashtreme</a>
+                <a href="#">Dashtreme</a>
             </li>
             <li class="breadcrumb-item">
-                <a href="javaScript:void();">Mail</a>
+                <a href="#">Mail</a>
             </li>
             <li class="breadcrumb-item active" aria-current="page">
                 Mail Read
@@ -27,133 +65,56 @@ include '../include/headeradmin.php';
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
-                <div class="row">
-                    <!-- Left sidebar -->
-                    <div class="col-lg-3 col-md-4">
-                        <a href="mail-compose.html" class="btn btn-danger btn-block">New Mail</a>
-                        <div class="card mt-3 shadow-none">
-                            <div class="list-groups shadow-none">
-                                <a href="../admin/managecustomersupport.php" class="list-group-item active"><i class="fa fa-inbox mr-2"></i>Inbox
-                                    <b>(12)</b></a>
-                            </div>
-                        </div>
+                <div class="media mb-3">
+                    <img src="https://via.placeholder.com/110x110" class="rounded-circle mr-3 mail-img shadow" alt="media image" />
+                    <div class="media-body">
+                        <span class="media-meta float-right"><?php echo date('h:i A', strtotime($message['created_at'])); ?></span>
+                        <h4 class="m-0"><?php echo htmlspecialchars($message['fullnames']); ?></h4>
+                        <small>From : <?php echo htmlspecialchars($message['email']); ?></small>
                     </div>
-                    <!-- End Left sidebar -->
-
-                    <!-- Right Sidebar -->
-                    <div class="col-lg-9 col-md-8">
-                        <div class="row">
-                            <div class="col-lg-8">
-                                <div class="btn-toolbar" role="toolbar">
-                                    <div class="btn-group mr-1">
-                                        <button type="button" class="btn btn-outline-primary waves-effect waves-light">
-                                            <i class="fa fa-inbox"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-outline-primary waves-effect waves-light">
-                                            <i class="fa fa-refresh"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-outline-primary waves-effect waves-light">
-                                            <i class="fa fa-trash-o"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="position-relative has-icon-right">
-                                    <input type="text" class="form-control" placeholder="search mail" />
-                                    <div class="form-control-position">
-                                        <i class="fa fa-search text-white"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End row -->
-                        <div class="card mt-3 shadow-none">
-                            <div class="card-body">
-                                <div class="media mb-3">
-                                    <img src="https://via.placeholder.com/110x110" class="rounded-circle mr-3 mail-img shadow" alt="media image" />
-                                    <div class="media-body">
-                                        <span class="media-meta float-right">08:22 AM</span>
-                                        <h4 class="m-0">Jhon Deo</h4>
-                                        <small>From : info@example.com</small>
-                                    </div>
-                                </div>
-                                <!-- media -->
-
-                                <p><b>Hi Sir...</b></p>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetuer adipiscing
-                                    elit. Aenean commodo ligula eget dolor. Aenean
-                                    massa. Cum sociis natoque penatibus et magnis dis
-                                    parturient montes, nascetur ridiculus mus. Donec
-                                    quam felis, ultricies nec, pellentesque eu, pretium
-                                    quis, sem.
-                                </p>
-                                <p>
-                                    Aenean vulputate eleifend tellus. Aenean leo ligula,
-                                    porttitor eu, consequat vitae, eleifend ac, enim.
-                                    Aliquam lorem ante, dapibus in, viverra quis,
-                                    feugiat a, tellus. Phasellus viverra nulla ut metus
-                                    varius laoreet. Quisque rutrum. Aenean imperdiet.
-                                    Etiam ultricies nisi vel augue. Curabitur
-                                    ullamcorper ultricies nisi. Nam eget dui. Etiam
-                                    rhoncus. Maecenas tempus, tellus eget condimentum
-                                    rhoncus, sem quam semper libero, sit amet adipiscing
-                                    sem neque sed ipsum. Nam quam nunc, blandit vel,
-                                    luctus pulvinar,
-                                </p>
-                                <p>
-                                    Nulla consequat massa quis enim. Donec pede justo,
-                                    fringilla vel, aliquet nec, vulputate eget, arcu. In
-                                    enim justo, rhoncus ut, imperdiet a, venenatis
-                                    vitae, justo. Nullam dictum felis eu pede mollis
-                                    pretium. Integer tincidunt. Cras dapibus. Vivamus
-                                    elementum semper nisi.
-                                </p>
-
-                                <hr />
-                                <h4>
-                                    <i class="fa fa-paperclip mr-2"></i> Attachments
-                                    <span>(3)</span>
-                                </h4>
-                                <div class="row">
-                                    <div class="col-sm-4 col-md-3">
-                                        <a href="javascript:void();">
-                                            <img src="https://via.placeholder.com/800x500" alt="attachment" class="img-thumbnail" />
-                                        </a>
-                                    </div>
-                                    <div class="col-sm-4 col-md-3">
-                                        <a href="javascript:void();">
-                                            <img src="https://via.placeholder.com/800x500" alt="attachment" class="img-thumbnail" />
-                                        </a>
-                                    </div>
-                                    <div class="col-sm-4 col-md-3">
-                                        <a href="javascript:void();">
-                                            <img src="https://via.placeholder.com/800x500" alt="attachment" class="img-thumbnail" />
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <form class="mt-3">
-                                    <div class="form-group">
-                                        <textarea class="form-control" rows="9" placeholder="Reply here..."></textarea>
-                                    </div>
-                                </form>
-
-                                <div class="text-right">
-                                    <button type="button" class="btn btn-primary waves-effect waves-light mt-3">
-                                        <i class="fa fa-send mr-1"></i> Send
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- card -->
-                    </div>
-                    <!-- end Col-9 -->
                 </div>
-                <!-- End row -->
+                <!-- media -->
+
+                <p><b><?php echo htmlspecialchars($message['subject']); ?></b></p>
+                <p><?php echo nl2br(htmlspecialchars($message['message'])); ?></p>
+
+                <?php if(!empty($message['attachments'])) : ?>
+                    <hr />
+                    <h4>
+                        <i class="fa fa-paperclip mr-2"></i> Attachments
+                        <span>(<?php echo count(explode(',', $message['attachments'])); ?>)</span>
+                    </h4>
+                    <div class="row">
+                        <?php foreach(explode(',', $message['attachments']) as $attachment) : ?>
+                            <div class="col-sm-4 col-md-3">
+                                <a href="<?php echo $attachment; ?>" target="_blank">
+                                    <img src="<?php echo $attachment; ?>" alt="attachment" class="img-thumbnail" />
+                                </a>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
+
+                <form method="POST" class="mt-3">
+                    <div class="form-group">
+                        <textarea class="form-control" name="reply_message" rows="9" placeholder="Reply here..."></textarea>
+                    </div>
+                    <div class="text-right">
+                        <button type="submit" class="btn btn-primary waves-effect waves-light mt-3">
+                            <i class="fa fa-send mr-1"></i> Send
+                        </button>
+                    </div>
+                </form>
+
+                <?php if(isset($alertType) && isset($alertMessage)) : ?>
+                    <div class="alert alert-<?php echo $alertType; ?> mt-3">
+                        <?php echo $alertMessage; ?>
+                    </div>
+                <?php endif; ?>
             </div>
         </div>
     </div>
 </div>
 <!-- End row -->
+
+<?php include '../include/footeradmin.php'; ?>

@@ -88,8 +88,8 @@ $_SESSION['expire_time'] = time() + (10 * 60); // Extend session for 10 minutes
                 </li>
                 <li class="sidebar-header">Quick Actions</li>
                 <li>
-                    <a href="../pages/contactadmin.php" class="waves-effect"><i class="fa fa-envelope-open"></i>
-                        <span>Contact Admin</span></a>
+                    <a href="../users/contactadmin.php" class="waves-effect"><i class="fa fa-envelope-open"></i>
+                        <span>Contact Us</span></a>
                 </li>
             </ul>
         </div>
