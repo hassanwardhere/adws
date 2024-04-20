@@ -2,10 +2,9 @@
 // Start session
 // Include database connection file
 include '../include/config.php';
-
-// Check if the user is logged in
+session_start();
+// Check if user is logged in
 if (!isset($_SESSION['user_id'])) {
-    // Redirect to login page if not logged in
     header("Location: ../auth/login.php");
     exit();
 }

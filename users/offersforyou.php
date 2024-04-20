@@ -28,7 +28,7 @@ include '../include/headeruser.php';
                     <p><b>Discount: </b><?php echo $offer['discount']; ?>%</p>
                     <p><b>Total You Pay: </b>Ksh/= <?php echo $offer['total']; ?></p>
                     <hr />
-                    <a href="subscribe.php?id=<?php echo $offer['id']; ?>" class="btn btn-success btn-sm text-white"> Subscribe</a>
+                    <a href="addtocarto.php?id=<?php echo $offer['id']; ?>" class="btn btn-success btn-sm text-white"> Subscribe</a>
                     <a href="readmore.php?id=<?php echo $offer['id']; ?>" class="btn btn-info btn-sm text-white"> Read More</a>
                 </div>
             </div>
@@ -60,7 +60,7 @@ include '../include/headeruser.php';
                     <p><b>Discount: </b><?php echo $offer['discount']; ?>%</p>
                     <p><b>Total You Pay: </b>Ksh/= <?php echo $offer['total']; ?></p>
                     <hr />
-                    <a href="subscribe.php?id=<?php echo $offer['id']; ?>" class="btn btn-success btn-sm text-white"> Subscribe</a>
+                    <a href="addtocarto.php?id=<?php echo $offer['id']; ?>" class="btn btn-success btn-sm text-white"> Subscribe</a>
                     <a href="readmore.php?id=<?php echo $offer['id']; ?>" class="btn btn-info btn-sm text-white"> Read More</a>
                 </div>
             </div>
@@ -93,7 +93,7 @@ include '../include/headeruser.php';
                     <p><b>Discount: </b><?php echo $offer['discount']; ?>%</p>
                     <p><b>Total You Pay: </b>Ksh/= <?php echo $offer['total']; ?></p>
                     <hr />
-                    <a href="subscribe.php?id=<?php echo $offer['id']; ?>" class="btn btn-success btn-sm text-white"> Subscribe</a>
+                    <a href="addtocarto.php?id=<?php echo $offer['id']; ?>" class="btn btn-success btn-sm text-white"> Subscribe</a>
                     <a href="readmore.php?id=<?php echo $offer['id']; ?>" class="btn btn-info btn-sm text-white"> Read More</a>
                 </div>
             </div>
@@ -124,7 +124,7 @@ include '../include/headeruser.php';
                     <p><b>Discount: </b><?php echo $offer['discount']; ?>%</p>
                     <p><b>Total You Pay: </b>Ksh/= <?php echo $offer['total']; ?></p>
                     <hr />
-                    <a href="subscribe.php?id=<?php echo $offer['id']; ?>" class="btn btn-success btn-sm text-white"> Subscribe</a>
+                    <a href="addtocarto.php?id=<?php echo $offer['id']; ?>" class="btn btn-success btn-sm text-white"> Subscribe</a>
                     <a href="readmore.php?id=<?php echo $offer['id']; ?>" class="btn btn-info btn-sm text-white"> Read More</a>
                 </div>
             </div>

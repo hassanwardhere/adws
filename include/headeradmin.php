@@ -99,8 +99,13 @@ $_SESSION['expire_time'] = time() + (10 * 60); // Extend session for 10 minutes
                     </a>
                 </li>
                 <li>
-                    <a href="../admin/processorder.php" class="waves-effect">
-                        Process Orders
+                    <a href="../admin/processorderp.php" class="waves-effect">
+                        Process Orders Packages
+                    </a>
+                </li>
+                <li>
+                    <a href="../admin/processordero.php" class="waves-effect">
+                        Process Orders Offers
                     </a>
                 </li>
                 <li>

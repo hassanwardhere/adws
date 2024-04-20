@@ -27,16 +27,16 @@ $userInfo = $stmt->fetch(PDO::FETCH_ASSOC);
 // Fetch cart ID from URL
 $cartId = isset($_GET['id']) ? $_GET['id'] : '';
 
-// Fetch package information from the cart table
-$stmt = $pdo->prepare("SELECT * FROM cart WHERE id = ?");
+// Fetch offer information from the cart table
+$stmt = $pdo->prepare("SELECT * FROM carto WHERE id = ?");
 $stmt->execute([$cartId]);
-$packageInfo = $stmt->fetch(PDO::FETCH_ASSOC);
+$offerInfo = $stmt->fetch(PDO::FETCH_ASSOC);
 
-// Fetch package information from the packages table using the package ID from the cart
-$packageId = $packageInfo['packageid'];
-$stmt = $pdo->prepare("SELECT * FROM packages WHERE id = ?");
-$stmt->execute([$packageId]);
-$packageDetails = $stmt->fetch(PDO::FETCH_ASSOC);
+// Fetch offer information from the offers table using the offer ID from the cart
+$offerId = $offerInfo['offerid'];
+$stmt = $pdo->prepare("SELECT * FROM offers WHERE id = ?");
+$stmt->execute([$offerId]);
+$offerDetails = $stmt->fetch(PDO::FETCH_ASSOC);
 
 // Check if form is submitted
 if (isset($_POST['checkout'])) {
@@ -47,8 +47,8 @@ if (isset($_POST['checkout'])) {
     $csvNumber = $_POST['csv'];
 
     // Insert order information into the orders table
-    $insertOrderStmt = $pdo->prepare("INSERT INTO `order` (packageid, userid, cartid, packagename, additionaldetails, device, price, discount, totalpaid, validity, status, namesoncreditcard, creditcardnumber, expiredate, csvnumber) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $insertOrderStmt->execute([$packageDetails['id'], $userid, $cartId, $packageDetails['packagename'], $packageDetails['additionaldetails'], $packageDetails['device'], $packageDetails['price'], $packageDetails['discount'], $packageDetails['total'], $packageDetails['validity'], 'Pending', $namesOnCard, $creditCardNumber, $expiryDate, $csvNumber]);
+    $insertOrderStmt = $pdo->prepare("INSERT INTO `ordero` (offerid, userid, cartid, offername, additionaldetails, device, price, discount, totalpaid, validity, status, namesoncreditcard, creditcardnumber, expiredate, csvnumber) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $insertOrderStmt->execute([$offerDetails['id'], $userid, $cartId, $offerDetails['offername'], $offerDetails['additionaldetails'], $offerDetails['device'], $offerDetails['price'], $offerDetails['discount'], $offerDetails['total'], $offerDetails['validity'], 'Pending', $namesOnCard, $creditCardNumber, $expiryDate, $csvNumber]);
 
     // Send emails
     sendOrderPlacementEmail($userInfo['email']);
@@ -185,17 +185,17 @@ function sendThankYouEmail($email)
                 </div>
                 <hr>
                 <br>
-                <h5>Package Information</h5>
+                <h5>offer Information</h5>
                 <hr>
                 <div class="row">
                     <div class="col-12 col-lg-4">
                         <div class="card shadow">
                             <div class="card-body">
-                                <h4 class="card-title"><?php echo $packageDetails['packagename']; ?></h4>
-                                <p><?php echo $packageDetails['additionaldetails']; ?></p>
-                                <p><b>Price: </b>Ksh/= <?php echo $packageDetails['price']; ?></p>
-                                <p><b>Discount: </b><?php echo $packageDetails['discount']; ?>%</p>
-                                <p><b>Total You Pay: </b>Ksh/= <?php echo $packageDetails['total']; ?></p>
+                                <h4 class="card-title"><?php echo $offerDetails['offername']; ?></h4>
+                                <p><?php echo $offerDetails['additionaldetails']; ?></p>
+                                <p><b>Price: </b>Ksh/= <?php echo $offerDetails['price']; ?></p>
+                                <p><b>Discount: </b><?php echo $offerDetails['discount']; ?>%</p>
+                                <p><b>Total You Pay: </b>Ksh/= <?php echo $offerDetails['total']; ?></p>
                                 <hr />
                             </div>
                         </div>

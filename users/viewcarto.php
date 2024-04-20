@@ -16,7 +16,7 @@ if (!isset($_SESSION['user_id'])) {
 
 // Fetch cart items for the logged-in user that are not in the order table
 $userId = $_SESSION['user_id'];
-$stmt = $pdo->prepare("SELECT * FROM cart WHERE userid = ? AND id NOT IN (SELECT cartid FROM `order`)");
+$stmt = $pdo->prepare("SELECT * FROM carto WHERE userid = ? AND id NOT IN (SELECT cartid FROM `ordero`)");
 $stmt->execute([$userId]);
 $cartItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
@@ -48,9 +48,9 @@ $cartItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <div class="card-header">
                 <h5>Your Cart
                     <span>
-                        <a href="removecartpackage.php?id=<?php echo $item['id']; ?>" class="btn btn-danger float-right"  style="margin-left: 10px;" onclick="return confirmDelete();">Remove</a>
+                        <a href="removecartoffer.php?id=<?php echo $item['id']; ?>" class="btn btn-danger float-right"  style="margin-left: 10px;" onclick="return confirmDelete();">Remove</a>
                         <span></span>
-                        <a href="allpackages.php" class="btn btn-success float-right" style="margin-left: 10px;">Browse More Packages</a>
+                        <a href="alloffer.php" class="btn btn-success float-right" style="margin-left: 10px;">Browse More offer</a>
                     </span>
                 </h5>
             </div>
@@ -60,7 +60,7 @@ $cartItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <table id="default-datatable" class="table table-bordered">
                         <thead>
                             <tr>
-                                <th>Package Name</th>
+                                <th>Offer Name</th>
                                 <th>Price</th>
                                 <th>Discount</th>
                                 <th>Total</th>
@@ -71,20 +71,20 @@ $cartItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <tbody>
                             <?php foreach ($cartItems as $item) : ?>
                                 <tr>
-                                    <td><?php echo $item['packagename']; ?></td>
+                                    <td><?php echo $item['offername']; ?></td>
                                     <td><?php echo $item['price']; ?></td>
                                     <td><?php echo $item['discount']; ?></td>
                                     <td><?php echo $item['totalpaid']; ?></td>
                                     <td><?php echo $item['totalpaid']; ?></td>
                                     <td>
-                                        <a href="checkoutp.php?id=<?php echo $item['id']; ?>" class="btn btn-success btn-sm">Checkout</a>
+                                        <a href="checkouto.php?id=<?php echo $item['id']; ?>" class="btn btn-success btn-sm">Checkout</a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
                         <tfoot>
                             <tr>
-                                <th>Package Name</th>
+                                <th>Offer Name</th>
                                 <th>Price</th>
                                 <th>Discount</th>
                                 <th>Total</th>
@@ -96,7 +96,7 @@ $cartItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </div>
             <?php else : ?>
                 <div class="alert alert-info" role="alert">
-                    You have nothing in your cart. <a href="allpackages.php" class="alert-link">Browse</a> to select a package you like.
+                    You have nothing in your cart. <a href="offersforyou.php" class="alert-link">Browse</a> to select a offer.php you like.
                 </div>
             <?php endif; ?>
         </div>
@@ -105,7 +105,7 @@ $cartItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </div><!-- End Row-->
 <script>
     function confirmDelete() {
-        return confirm("Are you sure you want to remove this package from your cart?");
+        return confirm("Are you sure you want to remove this offer from your cart?");
     }
 </script>
 

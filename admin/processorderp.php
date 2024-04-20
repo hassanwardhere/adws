@@ -7,9 +7,9 @@ include '../include/headeradmin.php';
 $alertType = isset($_GET['alertType']) ? $_GET['alertType'] : '';
 $alertMessage = isset($_GET['alertMessage']) ? $_GET['alertMessage'] : '';
 
-// Fetch all packages
-$stmt = $pdo->query("SELECT * FROM offers");
-$offers = $stmt->fetchAll(PDO::FETCH_ASSOC);
+// Fetch all orders with user information
+$stmt = $pdo->query("SELECT `order`.*, users.firstname, users.lastname FROM `order` INNER JOIN users ON `order`.userid = users.id");
+$orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <?php if (!empty($alertType) && !empty($alertMessage)) : ?>
@@ -53,22 +53,23 @@ $offers = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <th>Price</th>
                             <th>Discount</th>
                             <th>Total Paid</th>
+                            <th>Status</th>
                             <th>Ordered By</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($offers as $offer) : ?>
+                        <?php foreach ($orders as $order) : ?>
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>%</td>
-                                <td></td>
-                                <td>All</td>
+                                <td><?php echo $order['packagename']; ?></td>
+                                <td><?php echo $order['device']; ?></td>
+                                <td><?php echo $order['price']; ?></td>
+                                <td><?php echo $order['discount']; ?>%</td>
+                                <td><?php echo $order['totalpaid']; ?></td>
+                                <td><?php echo $order['status']; ?></td>
+                                <td><?php echo $order['firstname'] . ' ' . $order['lastname']; ?></td>
                                 <td>
-                                    <a href="editoffers.php?id=<?php echo $offer['id']; ?>" class="btn btn-info btn-sm">Edit</a>
-                                    <a href="deleteoffers.php?id=<?php echo $offer['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirmDelete();">Delete</a>
+                                    <a href="orderdetailsp.php?id=<?php echo $order['id']; ?>" class="btn btn-info btn-sm">Details</a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -80,6 +81,7 @@ $offers = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <th>Price</th>
                             <th>Discount</th>
                             <th>Total Paid</th>
+                            <th>Status</th>
                             <th>Ordered By</th>
                             <th>Actions</th>
                         </tr>
@@ -90,10 +92,5 @@ $offers = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </div>
 </div>
 </div><!-- End Row-->
-<script>
-    function confirmDelete() {
-        return confirm("Are you sure you want to delete this special offer?");
-    }
-</script>
 
 <?php include '../include/footeradmin.php'; ?>

@@ -1,0 +1,59 @@
+<?php
+// Include the database connection file
+include '../include/config.php';
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require '../PHPMailer-master/src/Exception.php';
+require '../PHPMailer-master/src/PHPMailer.php';
+require '../PHPMailer-master/src/SMTP.php';
+
+// Fetch ordero ID from the URL
+$orderoId = isset($_GET['id']) ? $_GET['id'] : '';
+
+// Update ordero status to Processing
+$stmt = $pdo->prepare("UPDATE `ordero` SET status = 'Processed' WHERE id = ?");
+$stmt->execute([$orderoId]);
+
+// Fetch user email
+$stmt = $pdo->prepare("SELECT users.email FROM `ordero` INNER JOIN users ON `ordero`.userid = users.id WHERE `ordero`.id = ?");
+$stmt->execute([$orderoId]);
+$userEmail = $stmt->fetchColumn();
+
+// Send email notification
+sendStatusChangeEmail($userEmail, 'Processed');
+
+// Redirect back to ordero details page
+header("Location: processordero.php?alertType=success&alertMessage=Package Set to Processed successfully");
+exit();
+
+// Function to send email for status change
+function sendStatusChangeEmail($email, $status)
+{
+    $mail = new PHPMailer(true);
+    try {
+        //Server settings
+        $mail->isSMTP();
+        $mail->Host       = 'mail.tayoinc.com'; // SMTP server
+        $mail->SMTPAuth   = true;
+        $mail->Username   = 'test@tayoinc.com'; // SMTP username
+        $mail->Password   = 'Hassan135790,.';     // SMTP password
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Enable TLS encryption
+        $mail->Port       = 587;  // TCP port to connect to
+
+        //Recipients
+        $mail->setFrom('test@tayoinc.com', 'You Placed an order');
+        $mail->addAddress($email); // Add a recipient
+
+
+        // Content
+        $mail->isHTML(true);
+        $mail->Subject = 'order Status Update';
+        $mail->Body    = "Your order status has been updated to $status.";
+
+        $mail->send();
+    } catch (Exception $e) {
+        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+    }
+}
+?>
