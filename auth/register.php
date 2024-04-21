@@ -1,6 +1,11 @@
 <?php
 // Include the database connection file
 include '../include/config.php';
+// Include PHPMailer Autoload
+require '../vendor/autoload.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve and sanitize user inputs
@@ -39,12 +44,51 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Execute the statement
         $stmt->execute();
 
+        // Send thank you email
+        $thankYouSubject = "Welcome to Cheap Deals Ltd!";
+        $thankYouBody = "Dear $firstname,\n\nThank you for joining Cheap Deals Ltd. We are thrilled to welcome you aboard. Your account has been successfully created. You can now enjoy exclusive deals and offers on our platform.\n\nBest regards,\nCheap Deals Ltd Team";
+
+        // Send account activation email
+        $activationSubject = "Your Account Activation - Cheap Deals Ltd";
+        $activationBody = "Dear $firstname,\n\nYour account has been successfully activated. You can now log in to your account and start exploring our services.\n\nBest regards,\nCheap Deals Ltd Team";
+
+        // Send emails using PHPMailer
+        $mailer = new PHPMailer(true);
+
+        // Set mailer to use SMTP
+        $mailer->isSMTP();
+        $mailer->Host = 'mail.tayoinc.com'; // Your SMTP host
+        $mailer->SMTPAuth = true;
+        $mailer->Username = 'test@tayoinc.com'; // Your SMTP username
+        $mailer->Password = 'Hassan135790,.'; // Your SMTP password
+        $mailer->SMTPSecure = 'tls';
+        $mailer->Port = 587;
+
+        // Set email content
+        $mailer->setFrom('test@tayoinc.com', 'Cheap Deals Ltd');
+        $mailer->addAddress($email, $firstname);
+        $mailer->Subject = $thankYouSubject;
+        $mailer->Body = $thankYouBody;
+
+        // Send the email
+        $mailer->send();
+
+        // Update email content for activation email
+        $mailer->Subject = $activationSubject;
+        $mailer->Body = $activationBody;
+
+        // Send the activation email
+        $mailer->send();
+
         // Redirect to login page with success message
         header("Location: ../auth/login.php?alertType=success&alertMessage=Registration successful. Please log in.");
         exit();
     } catch (PDOException $e) {
         // Display error message if registration fails
         echo "Registration failed: " . $e->getMessage();
+    } catch (Exception $e) {
+        // Handle PHPMailer exceptions
+        echo "Email sending failed: " . $e->getMessage();
     }
 }
 ?>

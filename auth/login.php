@@ -130,7 +130,7 @@ if (isset($_GET['alertType']) && isset($_GET['alertMessage'])) {
                             <input type="password" id="password" name="password" class="form-control input-shadow" placeholder="Enter Password" required>
                         </div>
                         <div class="form-group">
-                            <a href="authentication-reset-password.html">Reset Password</a>
+                            <a href="authentication-reset-password.php">Reset Password</a>
                         </div>
                         <button type="submit" name="signin" class="btn btn-success btn-block">Sign In</button>
                     </form>

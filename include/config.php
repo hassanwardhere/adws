@@ -5,7 +5,11 @@ define('DB_HOST', 'localhost');
 define('DB_NAME', 'adws');
 define('DB_USER', 'root');
 define('DB_PASSWORD', '');
-
+// Define database connection constants live server
+// define('DB_HOST', 'localhost');
+// define('DB_NAME', 'hassanwa_adws');
+// define('DB_USER', 'hassanwa_remsuser');
+// define('DB_PASSWORD', 'Hassan135790');
 try {
     // Create a new PDO instance
     $pdo = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASSWORD);
