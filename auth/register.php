@@ -23,7 +23,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     try {
         // Prepare SQL statement to insert user data
-        $stmt = $pdo->prepare("INSERT INTO users (firstname, middlename, lastname, phonenumber, email, gender, address, username, password, role, dateandtime, status) VALUES (:firstname, :middlename, :lastname, :phonenumber, :email, :gender, :address, :username, :password, :role, :dateandtime, :status)");
+        $stmt = $pdo->prepare("INSERT INTO users (firstname, middlename, lastname, phonenumber, email, gender, address, username, password, role, dateandtime, status) 
+        VALUES (:firstname, :middlename, :lastname, :phonenumber, :email, :gender, :address, :username, :password, :role, :dateandtime, :status)");
 
         // Bind parameters
         $stmt->bindParam(':firstname', $firstname);
